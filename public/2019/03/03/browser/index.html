@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="" class="loading">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sea&#39;s blog</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any pr,"> 
+    <meta name="author" content="sea"> 
+    <link rel="alternative" href="atom.xml" title="Sea&#39;s blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+</head>
+</html>
+<body class="loading">
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">浏览器的工作原理之html页面渲染</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">浏览器的工作原理之html页面渲染</h1>
+        <div class="stuff">
+            <span>三月 03, 2019</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览器对于我们而言是再熟悉不过的了，但是你知道，当你在浏览器中输入一个URL，按回车键，到你看到展示出来的信息，这个过程中，浏览器到底做了什么呢?想要理解透彻这整个过程是比较复杂的，需要积累很多东西，那么我这里主要简单说一下，当浏览器拿到了html文件是怎样解析然后呈现给我们的，废话不多说，直接看下边。</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在讲之前需要补充一点，就是html文件中一般都会有html标签、css、js脚本对吧，那么浏览器是按照什么方式来加载的呢？从上到下一一解析，遇到script标签会暂停页面代码解析（此处有一个暂停，如果不想因为加载js而影响页面加载速度呢，可以采用异步加载js的方式），先下载js代码然后解析执行，然后再往下加载解析HTML、css，所以为了不影响网页速度，js代码尽可能的放在代码的下边。</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好，言归正传，从访问URL，拿到HTML文件到看到网页呈现其实是比较简单的，主要有步骤：下载资源–&gt;解析资源–&gt;渲染–&gt;计算–&gt;显示</p>
+<h3 id="一、下载相应资源"><a href="#一、下载相应资源" class="headerlink" title="一、下载相应资源"></a>一、下载相应资源</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当用户输入URL后，浏览器回向服务器发送请求，请求成功后，服务器会响应相应的html页面（html在解析的过程中会导入css、js、image等资源文件）</p>
+<h3 id="二、解析资源、渲染、计算、显示"><a href="#二、解析资源、渲染、计算、显示" class="headerlink" title="二、解析资源、渲染、计算、显示"></a>二、解析资源、渲染、计算、显示</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HTML/svg会解析成dom tree,css会解析成css rule tree，这两种结合会生成render tree。当然，在解析HTML的时候除了会遇到css外，还会遇到js，遇到js就会下载解析执行，执行过程中会调用DOM API 和 CSSOM API，来改动dom tree 和 css rule tree。当渲染树（render tree）完成之后,就会进入layout，layout阶段是计算每个DOM元素最终在屏幕上显示的大小和位置（遍历顺序为从左至右，从上到下），这个阶段也会出现reflow(它主要是用来确定每个元素在屏幕上的几何属，性，需要大量计算每个元素的位置。在代码里每改变一个元素的几何属性，均会发生一次回流过程，比如说，改变元素 font-size，盒模型margin、border、padding、width等)。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;渲染引擎会遍历渲染树，由用户界面后端层将每个节点绘制出来，最后display出来，这个也是我们在网页上眼睛见到的最终效果</p>
+<h3 id="三、整个过程图解"><a href="#三、整个过程图解" class="headerlink" title="三、整个过程图解"></a>三、整个过程图解</h3><p><a href="https://github.com/jiangjiang1208688179/my-blog/tree/master/themes/hexo-theme-diaspora/source/img/browser-1.jpg" target="_blank" rel="noopener">https://github.com/jiangjiang1208688179/my-blog/tree/master/themes/hexo-theme-diaspora/source/img/browser-1.jpg</a><br>html页面渲染原理<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这样看来是不是也是非常简单呢，这里讲的比较浅，但是希望能够对前端开发的朋友们一点点帮助。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title="0" data-url="http://link.hhtjim.com/163/5146554.mp3"></li>
+                    
+                        <li title="1" data-url="http://link.hhtjim.com/qq/001faIUs4M2zna.mp3"></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link" data-ae="false" data-ci="" data-cs="" data-r="" data-o="" data-a="" data-d="false">查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
