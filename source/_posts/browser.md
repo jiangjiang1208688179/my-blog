@@ -2,7 +2,6 @@
 title: 浏览器的工作原理之html页面渲染
 date: 2019-3-3 18:21:03
 tags:
-cover: https://github.com/jiangjiang1208688179/my-blog/tree/master/themes/hexo-theme-diaspora/source/img/awesome.jpg
 ---
 
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览器对于我们而言是再熟悉不过的了，但是你知道，当你在浏览器中输入一个URL，按回车键，到你看到展示出来的信息，这个过程中，浏览器到底做了什么呢?想要理解透彻这整个过程是比较复杂的，需要积累很多东西，那么我这里主要简单说一下，当浏览器拿到了html文件是怎样解析然后呈现给我们的，废话不多说，直接看下边。
